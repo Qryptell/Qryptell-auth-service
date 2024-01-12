@@ -8,6 +8,7 @@ const login = async (req, res) => {
 
     const { email, password } = req.body
     const { sessionId, refreshToken } = req.cookies
+    
     console.log('cookies : ', req.cookies);
 
     const getUserQuery = `SELECT * FROM users WHERE email="${email}"`
@@ -25,7 +26,7 @@ const login = async (req, res) => {
         return res.status(401).json({ success: false, message: "Invalid email or password" })
     }
 
-    const accessToken = jwt.sign({ email, userId: user._id, userName: user.user_name }, process.env.JWT_ACCESS_SECRET, { expiresIn: '10h', issuer: 'lunarloom_auth:service' })
+    const accessToken = jwt.sign({ email, userId: user._id, username: user.user_name }, process.env.JWT_ACCESS_SECRET, { expiresIn: '10h', issuer: 'lunarloom_auth:service' })
     const [session] = await sql(`select * from auth where session_id="${sessionId}"`)
     if (sessionId && session) {
         console.log("session.refreshToken " + session.refresh_token);
@@ -35,7 +36,7 @@ const login = async (req, res) => {
     const newRefreshToken = nanoid()
     const newSessionId = nanoid()
     createSession(user._id,newRefreshToken , newSessionId).then(() => {
-        res.cookie('refeshToken', newRefreshToken, { maxAge: 30 * 24 * 60 * 60, httpOnly: true })
+        res.cookie('refreshToken', newRefreshToken, { maxAge: 30 * 24 * 60 * 60, httpOnly: true })
         res.cookie('sessionId', newSessionId, { maxAge: 30 * 24 * 60 * 60, httpOnly: true })
         res.status(200).json({ success: true, accessToken, refreshToken:newRefreshToken })
     }).catch(() => {
