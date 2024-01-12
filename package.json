@@ -1,5 +1,5 @@
 {
-  "name": "lunarloom-auth",
+  "name": "lunarloom-auth-service",
   "version": "1.0.0",
   "type": "module",
   "description": "the auth service for lunarloom",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LoomingLunar/LunarLoom-auth.git"
+    "url": "git+https://github.com/LoomingLunar/LunarLoom-auth-service.git"
   },
   "author": "loominglunar",
-  "license": "MIT",
+  "license": "GPLv3",
   "bugs": {
-    "url": "https://github.com/LoomingLunar/LunarLoom-auth/issues"
+    "url": "https://github.com/LoomingLunar/LunarLoom-auth-service/issues"
   },
-  "homepage": "https://github.com/LoomingLunar/LunarLoom-auth#readme",
+  "homepage": "https://github.com/LoomingLunar/LunarLoom-auth-service#readme",
   "dependencies": {
     "amqplib": "^0.10.3",
     "bcrypt": "^5.1.1",
