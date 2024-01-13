@@ -1,6 +1,6 @@
 # LunarLoom Auth Service
 
-The LunarLoom Auth Service is responsible for managing user authentication and authorization within the msg-grid microservice chat application. It utilizes Go, Fiber, JWT to securely handle user authentication and token-based authorization.
+The LunarLoom Auth Service is responsible for managing user authentication and authorization within the LunarLoom microservice chat application. It utilizes NodeJS, express, JWT to securely handle user authentication and token-based authorization.
 
 ## Table of Contents
 - [Features](#features)
@@ -25,7 +25,7 @@ The LunarLoom Auth Service is responsible for managing user authentication and a
 
 ## Usage
 Once the authentication service is running locally, it provides endpoints for user registration, login, and token generation.  
-Use these endpoints to authenticate users and manage sessions for other services within the msg-grid application.
+Use these endpoints to authenticate users and manage sessions for other services within the LunarLoom application.
 
 ## Contributing
 Contributions are welcome! To contribute to this project:
