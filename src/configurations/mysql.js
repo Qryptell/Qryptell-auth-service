@@ -1,9 +1,9 @@
 import mysql from 'mysql2'
 
 export var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '1@2@Aban',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     database: 'lunarloom_auth'
 });
 
