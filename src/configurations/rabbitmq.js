@@ -4,7 +4,7 @@ export const queue = 'lunarloom_auth_email'
 export var emailChannel = null
 export default function configureMq() {
 
-    amqp.connect('amqp://localhost', function (error0, connection) {
+    amqp.connect(process.env.RABBIT_MQ_URL, function (error0, connection) {
 
         if (error0) {
             throw error0
