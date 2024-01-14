@@ -8,12 +8,12 @@ import changePassword from './auth/changePassword.js'
 
 const router = new express.Router()
 
-router.post('/register',register)
-router.post('/verify-email',verifyEmail)
-router.post('/login',login)
-router.post('/refresh-token',refreshToken)
-router.post('/forgot-password')
-router.post('/change-password',changePassword)
-router.post('/logout',logout)
+router.post('/auth/register',register)
+router.post('/auth/verify-email',verifyEmail)
+router.post('/auth/login',login)
+router.post('/auth/refresh-token',refreshToken)
+router.post('/auth/forgot-password')
+router.post('/auth/change-password',changePassword)
+router.post('/auth/logout',logout)
 
 export default router
