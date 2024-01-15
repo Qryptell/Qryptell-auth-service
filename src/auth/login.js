@@ -38,7 +38,7 @@ const login = async (req, res) => {
     createSession(user._id,newRefreshToken , newSessionId).then(() => {
         res.cookie('refreshToken', newRefreshToken, { maxAge: 30 * 24 * 60 * 60, httpOnly: true })
         res.cookie('sessionId', newSessionId, { maxAge: 30 * 24 * 60 * 60, httpOnly: true })
-        res.status(200).json({ success: true, accessToken, refreshToken:newRefreshToken })
+        res.status(200).json({ success: true, accessToken })
     }).catch(() => {
         res.status(500).json({ success: false, message: "Something went Wrong , please try again later" })
     })

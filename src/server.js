@@ -17,4 +17,4 @@ app.use('/', router)
 configureMq()
 
 sql.connect(err => console.log(err ? err : "Database connected : MySQL"))
-app.listen(4000, err => console.log(err ? err : "Server started : 4000"))
+app.listen(4001, err => console.log(err ? err : "Server started : 4001"))
