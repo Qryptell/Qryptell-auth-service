@@ -10,11 +10,11 @@ const app = express()
 dotenv.config()
 
 
-app.use(cors({origin:[process.env.CLIENT_URL],credentials:true}))
+app.use(cors({ origin: [process.env.CLIENT_URL], credentials: true }))
 app.use(express.json())
 app.use(cookieParser())
 app.use('/', router)
 configureMq()
 
 sql.connect(err => console.log(err ? err : "Database connected : MySQL"))
-app.listen(4001, err => console.log(err ? err : "Server started : 4001"))
+app.listen(process.env.PORT, err => console.log(err ? err : "Server started : " + process.env.PORT))
