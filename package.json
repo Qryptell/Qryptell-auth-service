@@ -5,10 +5,11 @@
   "description": "the auth service for lunarloom",
   "main": "src/server.js",
   "scripts": {
-    "rabbit":"docker run -it --rm --name   rabbitmq -p  5672:5672 -p  15672:15672 rabbitmq:3.12-management",
+    "rabbit": "docker run -it --rm --name   rabbitmq -p  5672:5672 -p  15672:15672 rabbitmq:3.12-management",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "node test/test.js"
+    "test": "node test/test.js",
+    "setup": "node setup/setup.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   "dependencies": {
     "amqplib": "^0.10.3",
     "bcrypt": "^5.1.1",
+    "chalk": "^5.3.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
