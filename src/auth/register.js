@@ -27,6 +27,8 @@ const register = async (req, res) => {
     const findUserWithEmailQuery = `SELECT * FROM users WHERE email="${email}";`
     const findUserWithusernameQuery = `SELECT * FROM users WHERE username="${username}";`
 
+    const FIVE_MINUTE = 1000 * 60 * 5;
+
     //check availability of email
     sql(findUserWithEmailQuery).then((row0) => {
         if (row0.length < 1) {
@@ -38,7 +40,7 @@ const register = async (req, res) => {
                         sql(storeTemporaryUsersQuery).then(() => {
                             sendOtp(email, otp).then(() => {
                                 console.log("otp:", otp)
-                                res.cookie('email', email, { httpOnly: true, maxAge: 1000000 })
+                                res.cookie('email', email, { httpOnly: true, maxAge:  FIVE_MINUTE})
                                 res.status(200).json({ success: true, message: "We sended OTP to your email , please verify" })
                             }).catch((e2) => {
                                 res.status(500).json({ success: false, message: e2.message + ", Retry later or Report " })
