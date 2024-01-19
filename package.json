@@ -1,37 +1,38 @@
 {
-  "name": "lunarloom-auth-service",
-  "version": "1.0.0",
-  "type": "module",
-  "description": "the auth service for lunarloom",
-  "main": "src/server.js",
-  "scripts": {
-    "rabbit": "docker run -it --rm --name   rabbitmq -p  5672:5672 -p  15672:15672 rabbitmq:3.12-management",
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "test": "node test/test.js",
-    "setup": "node setup/setup.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LoomingLunar/LunarLoom-auth-service.git"
-  },
-  "author": "loominglunar",
-  "license": "GPLv3",
-  "bugs": {
-    "url": "https://github.com/LoomingLunar/LunarLoom-auth-service/issues"
-  },
-  "homepage": "https://github.com/LoomingLunar/LunarLoom-auth-service#readme",
-  "dependencies": {
-    "amqplib": "^0.10.3",
-    "bcrypt": "^5.1.1",
-    "chalk": "^5.3.0",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.6.5",
-    "nanoid": "^5.0.4",
-    "nodemon": "^3.0.2"
-  }
+    "name": "lunarloom-auth-service",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "the auth service for lunarloom",
+    "main": "src/server.js",
+    "scripts": {
+        "rabbit": "docker run -it --rm --name   rabbitmq -p  5672:5672 -p  15672:15672 rabbitmq:3.12-management",
+        "dev": "nodemon src/server.js",
+        "test": "node test/test.js",
+        "setup": "node setup/setup.js",
+        "start": "node src/server.js",
+        "deploy":"npm run setup && npm start"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/LoomingLunar/LunarLoom-auth-service.git"
+    },
+    "author": "loominglunar",
+    "license": "GPLv3",
+    "bugs": {
+        "url": "https://github.com/LoomingLunar/LunarLoom-auth-service/issues"
+    },
+    "homepage": "https://github.com/LoomingLunar/LunarLoom-auth-service#readme",
+    "dependencies": {
+        "amqplib": "^0.10.3",
+        "bcrypt": "^5.1.1",
+        "chalk": "^5.3.0",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.2",
+        "mysql2": "^3.6.5",
+        "nanoid": "^5.0.4",
+        "nodemon": "^3.0.2"
+    }
 }
