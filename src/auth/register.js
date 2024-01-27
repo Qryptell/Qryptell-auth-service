@@ -27,8 +27,6 @@ const register = async (req, res) => {
     const findUserWithEmailQuery = `SELECT * FROM users WHERE email="${email}";`
     const findUserWithusernameQuery = `SELECT * FROM users WHERE username="${username}";`
 
-    const FIVE_MINUTE = 1000 * 60 * 5;
-
     //check availability of email
     sql(findUserWithEmailQuery).then((row0) => {
         if (row0.length < 1) {
