@@ -26,7 +26,7 @@ const login = async (req, res) => {
         return res.status(401).json({ success: false, message: "Invalid email or password" })
     }
 
-    const accessToken = jwt.sign({ email, userId: user._id, username: user.user_name }, process.env.JWT_ACCESS_SECRET, { expiresIn: '10h', issuer: 'lunarloom_auth:service' })
+    const accessToken = jwt.sign({ email, userId: user._id, username: user.username }, process.env.JWT_ACCESS_SECRET, { expiresIn: '10h', issuer: 'lunarloom:auth-service:login' })
     const [session] = await sql(`select * from auth where session_id="${sessionId}"`)
     if (sessionId && session) {
         console.log("session.refreshToken " + session.refresh_token);
