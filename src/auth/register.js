@@ -6,8 +6,7 @@ import removeJunkTempUsers from '../controllers/removeJunkTempUsers.js'
 
 const register = async (req, res) => {
 
-    console.log("req is here");
-
+    const FIVE_MINUTE = 60*5*1000;
     const { email, password, username } = req.body
     console.log(email, password, username)
 
@@ -38,7 +37,7 @@ const register = async (req, res) => {
                         sql(storeTemporaryUsersQuery).then(() => {
                             sendOtp(email, otp).then(() => {
                                 console.log("otp:", otp)
-                                res.cookie('email', email, { httpOnly: true, maxAge:  FIVE_MINUTE})
+                                res.cookie('email', email, { httpOnly: true, maxAge: FIVE_MINUTE})
                                 res.status(200).json({ success: true, message: "We sended OTP to your email , please verify" })
                             }).catch((e2) => {
                                 res.status(500).json({ success: false, message: e2.message + ", Retry later or Report " })
