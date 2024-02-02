@@ -7,10 +7,10 @@ import removeJunkTempUsers from '../controllers/removeJunkTempUsers.js'
 const register = async (req, res) => {
 
     const FIVE_MINUTE = 60*5*1000;
-    const { email, password, username } = req.body
-    console.log(email, password, username)
+    const { email, password, username ,name } = req.body
+    console.log(email, password, username ,name)
 
-    if (!(email && password && username)) {
+    if (!(email && password && username && name)) {
         return res.status(401).json({ success: false, message: "Missing Crendential" })
     }
 
@@ -22,7 +22,7 @@ const register = async (req, res) => {
 
     //declaring all needed sql queries
 
-    const storeTemporaryUsersQuery = `INSERT INTO temporary_users VALUES("${email}","${encrypedOtp}","${username}","${encrypedPassword}","${Date.now()}");`
+    const storeTemporaryUsersQuery = `INSERT INTO temporary_users VALUES("${email}","${encrypedOtp}","${username}","${name}",${encrypedPassword}","${Date.now()}");`
     const findUserWithEmailQuery = `SELECT * FROM users WHERE email="${email}";`
     const findUserWithusernameQuery = `SELECT * FROM users WHERE username="${username}";`
 
