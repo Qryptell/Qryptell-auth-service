@@ -8,7 +8,6 @@ import axios from 'axios'
 
 export default function verifyEmail(req, res) {
     const { otp } = req.body
-    // const { email } = req.cookies
     const { email } = req.cookies
     console.log(req.cookies);
 
@@ -30,7 +29,7 @@ export default function verifyEmail(req, res) {
                     createSession(userId, refreshToken, sessionId).then(() => {
                         res.cookie('refreshToken', refreshToken, { maxAge: 30 * 24 * 60 * 60, httpOnly: true })
                         res.cookie('sessionId', sessionId, { maxAge: 30 * 24 * 60 * 60, httpOnly: true })
-                        axios.post(process.env.USER_SERVICE_URL + '/user/private/create', { username: user.user_name })
+                        axios.post(process.env.USER_SERVICE_URL + '/user/private/create', { username: user.user_name,name:user.name })
                         res.status(200).json({ success: true, accessToken })
                     }).catch(() => {
                         res.status(500).json({ success: false, message: "Something went Wrong , please try again later" })

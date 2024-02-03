@@ -9,7 +9,8 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "test": "node test/test.js",
-    "setup": "node setup/setup.js"
+    "setup": "node setup/setup.js",
+    "deploy":"npm start"
   },
   "repository": {
     "type": "git",

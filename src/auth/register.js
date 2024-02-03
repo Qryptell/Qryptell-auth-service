@@ -6,12 +6,11 @@ import removeJunkTempUsers from '../controllers/removeJunkTempUsers.js'
 
 const register = async (req, res) => {
 
-    console.log("req is here");
+    const FIVE_MINUTE = 60*5*1000;
+    const { email, password, username ,name } = req.body
+    console.log(email, password, username ,name)
 
-    const { email, password, username } = req.body
-    console.log(email, password, username)
-
-    if (!(email && password && username)) {
+    if (!(email && password && username && name)) {
         return res.status(401).json({ success: false, message: "Missing Crendential" })
     }
 
@@ -23,7 +22,7 @@ const register = async (req, res) => {
 
     //declaring all needed sql queries
 
-    const storeTemporaryUsersQuery = `INSERT INTO temporary_users VALUES("${email}","${encrypedOtp}","${username}","${encrypedPassword}","${Date.now()}");`
+    const storeTemporaryUsersQuery = `INSERT INTO temporary_users VALUES("${email}","${encrypedOtp}","${username}","${name}","${encrypedPassword}","${Date.now()}");`
     const findUserWithEmailQuery = `SELECT * FROM users WHERE email="${email}";`
     const findUserWithusernameQuery = `SELECT * FROM users WHERE username="${username}";`
 
@@ -36,15 +35,16 @@ const register = async (req, res) => {
                     const userInTempUsers = checkUserInTempUser()
                     if (!userInTempUsers) {
                         sql(storeTemporaryUsersQuery).then(() => {
+                            console.log("created temporary user");
                             sendOtp(email, otp).then(() => {
                                 console.log("otp:", otp)
-                                res.cookie('email', email, { httpOnly: true, maxAge:  FIVE_MINUTE})
+                                res.cookie('email', email, { httpOnly: true, maxAge: FIVE_MINUTE})
                                 res.status(200).json({ success: true, message: "We sended OTP to your email , please verify" })
                             }).catch((e2) => {
                                 res.status(500).json({ success: false, message: e2.message + ", Retry later or Report " })
                             })
-                        }).catch(() => {
-                            res.status(500).json({ success: false, message: " Something went Wrong , OTP not sended" })
+                        }).catch((e3) => {
+                            res.status(500).json({ success: false, message: e3+" Something went Wrong , OTP not sended" })
                         })
                     } else {
                         if (userInTempUsers === "email") {
