@@ -22,7 +22,7 @@ const register = async (req, res) => {
 
     //declaring all needed sql queries
 
-    const storeTemporaryUsersQuery = `INSERT INTO temporary_users VALUES("${email}","${encrypedOtp}","${username}","${name}",${encrypedPassword}","${Date.now()}");`
+    const storeTemporaryUsersQuery = `INSERT INTO temporary_users VALUES("${email}","${encrypedOtp}","${username}","${name}","${encrypedPassword}","${Date.now()}");`
     const findUserWithEmailQuery = `SELECT * FROM users WHERE email="${email}";`
     const findUserWithusernameQuery = `SELECT * FROM users WHERE username="${username}";`
 
@@ -35,6 +35,7 @@ const register = async (req, res) => {
                     const userInTempUsers = checkUserInTempUser()
                     if (!userInTempUsers) {
                         sql(storeTemporaryUsersQuery).then(() => {
+                            console.log("created temporary user");
                             sendOtp(email, otp).then(() => {
                                 console.log("otp:", otp)
                                 res.cookie('email', email, { httpOnly: true, maxAge: FIVE_MINUTE})
@@ -42,8 +43,8 @@ const register = async (req, res) => {
                             }).catch((e2) => {
                                 res.status(500).json({ success: false, message: e2.message + ", Retry later or Report " })
                             })
-                        }).catch(() => {
-                            res.status(500).json({ success: false, message: " Something went Wrong , OTP not sended" })
+                        }).catch((e3) => {
+                            res.status(500).json({ success: false, message: e3+" Something went Wrong , OTP not sended" })
                         })
                     } else {
                         if (userInTempUsers === "email") {

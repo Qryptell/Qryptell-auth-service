@@ -25,7 +25,7 @@ await sql("CREATE TABLE auth (session_id varchar(100) NOT NULL PRIMARY KEY,refre
 
 // creating auth table
 
-await sql("CREATE TABLE temporary_users(email varchar(300) NOT NULL PRIMARY KEY, otp varchar(200) NOT NULL, user_name varchar(500) NOT NULL UNIQUE, password varchar(1000) NOT NULL, time decimal(18, 0) NOT NULL);")
+await sql("CREATE TABLE temporary_users(email varchar(300) NOT NULL PRIMARY KEY, otp varchar(200) NOT NULL, user_name varchar(500) NOT NULL UNIQUE,name varchar(1000) NOT NULL, password varchar(1000) NOT NULL, time decimal(18, 0) NOT NULL);")
     .then(() => {
         console.log(chalk.greenBright("3 - temporary_users table created"));
         success++
