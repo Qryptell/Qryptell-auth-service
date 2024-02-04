@@ -10,7 +10,7 @@
     "dev": "nodemon src/server.js",
     "test": "node test/test.js",
     "setup": "node setup/setup.js",
-    "deploy":"npm start"
+    "deploy":"npm run setup && npm start"
   },
   "repository": {
     "type": "git",
