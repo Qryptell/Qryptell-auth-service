@@ -5,8 +5,8 @@ import dotenv from 'dotenv'
 dotenv.config()
 export var connection = mysql.createConnection({
     host: process.env.DB_HOST,
-    user: 'root',
-    password: '1@2@Aban',
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     database: 'lunarloom_auth'
 });
 
