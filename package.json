@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LoomingLunar/LunarLoom-auth-service.git"
+    "url": "git+https://github.com/LoomingLunar/Qryptell-auth-service.git"
   },
   "author": "loominglunar",
   "license": "GPLv3",
   "bugs": {
-    "url": "https://github.com/LoomingLunar/LunarLoom-auth-service/issues"
+    "url": "https://github.com/LoomingLunar/Qryptell-auth-service/issues"
   },
-  "homepage": "https://github.com/LoomingLunar/LunarLoom-auth-service#readme",
+  "homepage": "https://github.com/LoomingLunar/Qryptell-auth-service#readme",
   "dependencies": {
     "amqplib": "^0.10.3",
     "axios": "^1.6.7",
