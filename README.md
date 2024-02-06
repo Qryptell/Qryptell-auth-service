@@ -1,6 +1,6 @@
-# LunarLoom Auth Service
+# Qryptell Auth Service
 
-The LunarLoom Auth Service is responsible for managing user authentication and authorization within the LunarLoom microservice chat application. It utilizes NodeJS, express, JWT to securely handle user authentication and token-based authorization.
+The Qryptell Auth Service is responsible for managing user authentication and authorization within the Qryptell microservice chat application. It utilizes NodeJS, express, JWT to securely handle user authentication and token-based authorization.
 
 ## Table of Contents
 - [Features](#features)
@@ -25,19 +25,19 @@ The LunarLoom Auth Service is responsible for managing user authentication and a
 
 ## Usage
 Once the authentication service is running locally, it provides endpoints for user registration, login, and token generation.  
-Use these endpoints to authenticate users and manage sessions for other services within the LunarLoom application.
+Use these endpoints to authenticate users and manage sessions for other services within the Qryptell application.
 
 ## Contributing
 Contributions are welcome! To contribute to this project:
 1. Fork the project
 2. Clone the fork
     ```git
-    git clone https://github.com/<your-username>/LunarLoom-auth-service
+    git clone https://github.com/<your-username>/Qryptell-auth-service
     ```
 
 3. Add Upstream
     ```git
-    git remote add upstream https://github.com/LoomingLunar/LunarLoom-auth-service
+    git remote add upstream https://github.com/LoomingLunar/Qryptell-auth-service
     ```
 
 4. Craete a new branch
@@ -73,9 +73,9 @@ Contributions are welcome! To contribute to this project:
 
 ## LICENSE
 
-LunarLoom Auth Service - Auth Service for LunarLoom End To End Encrypted Chat App.
+Qryptell Auth Service - Auth Service for Qryptell End To End Encrypted Chat App.
 
-Copyright © 2023  LunarLoom
+Copyright © 2023  Qryptell
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
