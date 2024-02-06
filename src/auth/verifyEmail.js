@@ -23,7 +23,7 @@ export default function verifyEmail(req, res) {
                 const userId = nanoid()
                 const sessionId = nanoid()
                 createUser(userId, email, user.user_name, user.password).then(async () => {
-                    await sql(deleteTempUserQuery)
+                    await sql(deleteTempUserQuery).catch((e)=>{throw e})
                     const accessToken = jwt.sign({ email, userId, username: user.user_name }, process.env.JWT_ACCESS_SECRET, { expiresIn: '10h', issuer: 'lunarloom:auth-service:register' })
                     const refreshToken = nanoid()
                     createSession(userId, refreshToken, sessionId).then(() => {
@@ -42,6 +42,7 @@ export default function verifyEmail(req, res) {
             return res.status(401).json({ success: false, message: "Invalid email" })
         }
     }).catch((e1) => {
+        throw e1
         return res.status(500).json({ success: false, message: "OTP expired , please try again" })
     })
 

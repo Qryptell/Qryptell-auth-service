@@ -6,7 +6,8 @@ export default function updateSession(refresh_token,session_id) {
         const updateSessionQuery = `UPDATE auth SET refresh_token="${refresh_token}" WHERE session_id="${session_id}"`
         sql(updateSessionQuery).then(() => {
             resolve()
-        }).catch(() => {
+        }).catch((e) => {
+            throw e
             reject()
         })
     })

@@ -5,7 +5,8 @@ export default function deleteSession(session_id) {
         const deleteUserQuery = `DELETE FROM auth WHERE session_id="${session_id}";`
         sql(deleteUserQuery).then(() => {
             resolve()
-        }).catch(() => {
+        }).catch((e) => {
+            throw e
             reject()
         })
     })
