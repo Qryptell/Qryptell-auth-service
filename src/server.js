@@ -6,8 +6,9 @@ import dotenv from 'dotenv'
 import router from './router.js'
 import configureMq from './configurations/rabbitmq.js'
 
-const app = express()
 dotenv.config()
+const app = express()
+
 
 
 app.use(cors({ origin: [process.env.CLIENT_URL], credentials: true }))

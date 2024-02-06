@@ -16,6 +16,7 @@ const sql = (query) => {
     return new Promise((resolve, reject) => {
         connection.query(query, (err, row) => {
             if (err) {
+                
                 reject(err)
             } else {
                 resolve(row)

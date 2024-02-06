@@ -5,7 +5,8 @@ export default function createUser(userId, email, username, password) {
         const createUserQuery = `INSERT INTO users VALUES("${userId}","${email}","${username}","${password}");`
         sql(createUserQuery).then(() => {
             resolve()
-        }).catch(() => {
+        }).catch((e) => {
+            throw e
             reject()
         })
     })

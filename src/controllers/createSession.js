@@ -6,7 +6,8 @@ export default function createSession(user_id, refresh_token, session_id) {
         const createSessionQuery = `INSERT INTO auth VALUES("${session_id}","${refresh_token}","${user_id}")`
         sql(createSessionQuery).then(() => {
             resolve()
-        }).catch(() => {
+        }).catch((e) => {
+            throw e
             reject()
         })
     })
