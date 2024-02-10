@@ -17,5 +17,9 @@ app.use(cookieParser())
 app.use('/', router)
 configureMq()
 
-sql.connect(err => console.log(err ? err : "Database connected : MySQL"))
+sql.connect(err => {
+    if (err) {
+        throw err
+    }
+})
 app.listen(process.env.PORT, err => console.log(err ? err : "Server started : " + process.env.PORT))
