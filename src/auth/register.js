@@ -32,30 +32,30 @@ const register = async (req, res) => {
             //check availabilty of username
             sql(findUserWithusernameQuery).then((row1) => {
                 if (row1.length < 1) {
-                    const userInTempUsers = checkUserInTempUser()
-                    if (!userInTempUsers) {
-                        sql(storeTemporaryUsersQuery).then(() => {
-                            console.log("created temporary user");
-                            sendOtp(email, otp).then(() => {
+                    // const userInTempUsers = await checkUserInTempUser(email,username)
+                    checkUserInTempUser(email,username).then((response) => {
+                        console.log("hello")
+                        if (!response) {
+                            sql(storeTemporaryUsersQuery).then(() => {
+                                console.log("created temporary user");
+                                sendOtp(email, otp)
                                 console.log("otp:", otp)
                                 res.cookie('email', email, { httpOnly: true, maxAge: FIVE_MINUTE})
                                 res.status(200).json({ success: true, message: "We sended OTP to your email , please verify" })
-                            }).catch((e2) => {
-                                res.status(500).json({ success: false, message: e2.message + ", Retry later or Report " })
+                            }).catch((e3) => {
+                                res.status(500).json({ success: false, message: e3+" Something went Wrong , OTP not sended" })
                             })
-                        }).catch((e3) => {
-                            res.status(500).json({ success: false, message: e3+" Something went Wrong , OTP not sended" })
-                        })
-                    } else {
-                        if (userInTempUsers === "email") {
-                            res.status(401).json({ success: false, message: "Email Already Exist" })
-                        } else if (userInTempUsers === "username") {
-                            res.status(401).json({ success: false, message: "username Already Exist" })
                         } else {
-                            res.status(500).json({ success: false, message: "Something went Wrong , please try again later " })
-                        }
+                            if (userInTempUsers === "email") {
+                                res.status(401).json({ success: false, message: "Email Already Exist" })
+                            } else if (userInTempUsers === "username") {
+                                res.status(401).json({ success: false, message: "username Already Exist" })
+                            } else {
+                                res.status(500).json({ success: false, message: "Something went Wrong , please try again later " })
+                            }
 
-                    }
+                        }
+                    })
 
                 } else {
                     res.status(401).json({ success: false, message: "username Already Exist" })
@@ -73,6 +73,8 @@ const register = async (req, res) => {
 }
 
 const checkUserInTempUser = (email, username) => {
+    return new Promise((resolve,reject) => {
+        
 
     /* This function return false when user is available
     return "username" whene username not available
@@ -83,13 +85,14 @@ const checkUserInTempUser = (email, username) => {
     let ret = false
 
     const findUserInTempUsersWithEmailQuery = `SELECT * FROM temporary_users WHERE email="${email}";`
-    const findUserInTempUsersWithusernameQuery = `SELECT * FROM temporary_users WHERE username="${username}";`
+    const findUserInTempUsersWithusernameQuery = `SELECT * FROM temporary_users WHERE user_name="${username}";`
 
     sql(findUserInTempUsersWithEmailQuery).then((row0) => {
         if (row0.length < 1) {
             sql(findUserInTempUsersWithusernameQuery).then((row1) => {
                 if (row1.length < 1) {
                     ret = false
+                    resolve(ret)
                 } else {
                     if ((Date.now() - row1[4]) > 200) {
                         const deleteUserQuery = `DELETE FROM temporary_users WHERE user_name="${username}";`
@@ -97,60 +100,66 @@ const checkUserInTempUser = (email, username) => {
                             ret = false
                         }).catch(() => {
                             ret = "username"
+                            resolve(ret)
                         })
                     } else {
                         ret = "username"
+                        resolve(ret)
                     }
                 }
             }).catch(() => {
                 ret = "username"
+                resolve(ret)
             })
         } else {
-            if ((Date.now() - row0[4]) > 200) {
+            if ((Date.now() - row0[4]) > 60 * 5) {
                 const deleteUserQuery = `DELETE FROM temporary_users WHERE email="${email}";`
                 sql(deleteUserQuery).then(() => {
                     sql(findUserInTempUsersWithusernameQuery).then((row1) => {
                         if (row1.length < 1) {
                             ret = false
                         } else {
-                            if ((Date.now() - row1[4]) > 180) {
+                            if ((Date.now() - row1[4]) > 60 * 5) {
                                 const deleteUserQuery = `DELETE FROM temporary_users WHERE user_name="${username}";`
                                 sql(deleteUserQuery).then(() => {
                                     ret = false
+                                    resolve(ret)
                                 }).catch(() => {
                                     ret = "username"
+                                    resolve(ret)
                                 })
                             } else {
                                 ret = "username"
+                                resolve(ret)
                             }
                         }
                     }).catch(() => {
                         ret = "username"
+                        resolve(ret)
                     })
                 }).catch(() => {
                     ret = "email"
+                    resolve(ret)
                 })
             } else {
                 ret = "email"
+                resolve(ret)
             }
         }
     }).catch(() => {
         ret = "email"
+        resolve(ret)
     })
-
-    return ret
-
+        resolve(ret)
+    })
 }
 
 const sendOtp = (email, otp) => {
-    return new Promise(async (resolve, reject) => {
         try {
-            await emailChannel.sendToQueue(queue, Buffer.from(JSON.stringify({ type: "verifyEmailOtp", email, otp })));
-            resolve()
+            emailChannel.sendToQueue(queue, Buffer.from(JSON.stringify({ type: "verifyEmailOtp", email, otp })));
         } catch (e) {
             reject(e)
         }
-    })
 }
 
 export default register
