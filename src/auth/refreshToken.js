@@ -19,7 +19,7 @@ export default function refreshAccessToken(req, res) {
         var { refresh_token, user_id } = list[0]
         const [user] = await sql(`select * from users where _id="${user_id}"`)
         if (refresh_token === refreshToken) {
-            const accessToken = jwt.sign({ email: user.email, user_id, username: user.username }, process.env.JWT_ACCESS_SECRET, { expiresIn: '10h', issuer: 'lunarloom_auth:service' })
+            const accessToken = jwt.sign({ email: user.email, userId: user_id, username: user.username }, process.env.JWT_ACCESS_SECRET, { expiresIn: '10h', issuer: 'lunarloom_auth:service' })
             const refreshToken = nanoid()
             updateSession(refreshToken, sessionId).then(() => {
                 res.cookie('refreshToken', refreshToken, { maxAge: 30 * 24 * 60 * 60, httpOnly: true })
