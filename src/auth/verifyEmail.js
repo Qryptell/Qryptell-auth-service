@@ -5,12 +5,12 @@ import createSession from '../controllers/createSession.js'
 import jwt from 'jsonwebtoken'
 import createUser from '../controllers/createUser.js'
 import axios from 'axios'
+import { Snowflake } from "@theinternetfolks/snowflake";
 
 export default function verifyEmail(req, res) {
     const { otp } = req.body
     const { email } = req.cookies
     console.log(req.cookies);
-
     const getTempUserQuery = `SELECT * FROM temporary_users WHERE email="${email}";`
     const deleteTempUserQuery = `DELETE FROM temporary_users WHERE email="${email}";`
 
@@ -20,7 +20,7 @@ export default function verifyEmail(req, res) {
         console.log(user.otp)
         if (email == user.email) {
             if (await bcrypt.compare(`${otp}`, user.otp)) {
-                const userId = nanoid()
+                const userId = Snowflake.generate()
                 const sessionId = nanoid()
                 createUser(userId, email, user.user_name, user.password).then(async () => {
                     await sql(deleteTempUserQuery).catch((e)=>{throw e})
